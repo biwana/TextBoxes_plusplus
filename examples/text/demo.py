@@ -30,7 +30,7 @@ config = {
 	'rec_save_dir' : './demo_images/recognition_result/',
 	'crop_dir' : './demo_images/crops/',
 	'lexicon_path' : './crnn/data/icdar_generic_lexicon.txt',
-	'use_lexcion' : True,
+	'use_lexcion' : False,
 	'input_height' : 768,
 	'input_width' : 768,
 	'overlap_threshold' : 0.2,
