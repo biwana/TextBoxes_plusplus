@@ -124,6 +124,9 @@ def apply_quad_nms(bboxes, overlap_threshold):
 
 def save_and_visu(image, image_file, results, config):
 	# modified for multiple
+	dpi = 80
+	image_height, image_width, channels = image.shape
+	figsize = image_width / float(dpi), image_height / float(dpi)
 	img_name=image_file.split('/')[-1]
 	basename=img_name.split('.')[0]
 	det_save_path=os.path.join(config['det_save_dir'], basename+'.txt')
@@ -131,7 +134,9 @@ def save_and_visu(image, image_file, results, config):
 	if config['visu_detection']:
 		# visulization
 		plt.clf()
-		plt.imshow(image)
+		fig = plt.figure(figsize=figsize)
+		ax = fig.add_axes([0, 0, 1, 1])
+		ax.imshow(image)
 		currentAxis = plt.gca()
 	for result in results:
 		score = result[-1]
@@ -153,7 +158,9 @@ def save_and_visu(image, image_file, results, config):
 	det_fid.close()
 	if config['visu_detection']:
 		plt.axis('off')
-		plt.savefig(os.path.join(config['det_visu_path'], img_name))
+		ax.set(xlim=[0, image_width], ylim=[image_height, 0], aspect=1)
+		plt.savefig(os.path.join(config['det_visu_path'], img_name), dpi=dpi)
+		plt.close()
 
 # detection
 net, transformer = prepare_network(config)
@@ -174,4 +181,3 @@ for img_file in img_list:
 	crop_image(img_file, results, os.path.join(config['crop_dir']))
 print('detection finished')
 
-	
