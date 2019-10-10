@@ -23,7 +23,7 @@ caffe.set_mode_gpu()
 config = {
 	'model_def' : './models/deploy.prototxt',
 	'model_weights' : './models/model_icdar15.caffemodel',
-	'img_dir' : './test_images/',
+	'img_dir' : './cleaned_original/',
 	'det_visu_path' : './output/tbpp_results/',
 	'det_save_dir' : './output/tbpp_results/',
 	'crop_dir' : './output/tbpp_crop/',
