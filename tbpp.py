@@ -153,7 +153,7 @@ def save_and_visu(image, image_file, results, config):
 	det_fid.close()
 	if config['visu_detection']:
 		plt.axis('off')
-		plt.savefig(os.path.join(config['det_visu_path'], image_name), dpi=300)
+		plt.savefig(os.path.join(config['det_visu_path'], img_name), dpi=300)
 
 # detection
 net, transformer = prepare_network(config)
