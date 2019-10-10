@@ -7,6 +7,7 @@ and CRNN with all their respective dependencies.\
 Make sure to run with nvidia-docker"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+        sudo \
         autoconf \
         autoconf-archive \
         automake \
@@ -57,14 +58,38 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV CAFFE_ROOT=/opt/caffe
 WORKDIR $CAFFE_ROOT
 
-
 ########################################
 #### Install CRNN Dependencies #########
 ########################################
 
 # Install pytorch
 WORKDIR /root
-RUN git clone https://github.com/torch/distro.git /root/torch --recursive
+RUN git clone https://github.com/biwana/distro /root/torch --recursive
+
+WORKDIR $CAFFE_ROOT
+Copy python ${CAFFE_ROOT}/python
+RUN pip install Cython==0.28.5
+RUN pip install h5py==2.8.0
+RUN pip install scipy==0.13.3
+RUN pip install ipython==5.8.0
+RUN pip install numpy==1.9.0
+RUN pip install leveldb==0.194
+RUN pip install matplotlib==2.2.2
+RUN pip install networkx==2.1
+RUN pip install nose==1.3.7
+RUN pip install pandas==0.23.4
+RUN pip install Pillow==5.2.0
+RUN pip install protobuf==3.6.0
+RUN pip install pydot==1.2.4
+RUN pip install python-dateutil==2.7.3
+RUN pip install python-gflags==3.1.2
+RUN pip install pyyaml==3.10
+RUN pip install scikit-image==0.9.3
+RUN pip install shapely==1.6.4
+RUN pip install six==1.11.0
+
+WORKDIR /root
+
 RUN cd /root/torch && \
     bash install-deps;
 RUN cd /root/torch && \
@@ -125,12 +150,6 @@ RUN cd ${CAFFE_ROOT}/crnn/src && \
 ########################################
 #### Install Textboxes++ Dependencies ##
 ########################################
-WORKDIR $CAFFE_ROOT
-
-# Cython needs to be installed seperately
-Copy python ${CAFFE_ROOT}/python
-RUN pip install Cython==0.28.5
-RUN pip install -r python/requirements.txt
 
 ########################################
 #### Install Textboxes++ ###############

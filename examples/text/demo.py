@@ -8,6 +8,7 @@ import math
 from nms import nms
 from crop_image import crop_image
 
+import caffe
 # Make sure that caffe is on the python path:
 caffe_root = './'  # this file is expected to be in {caffe_root}/examples
 import os
@@ -15,7 +16,7 @@ os.chdir(caffe_root)
 import sys
 sys.path.insert(0, 'python')
 
-import caffe
+#import caffe
 caffe.set_device(0)
 caffe.set_mode_gpu()
 
