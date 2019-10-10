@@ -148,6 +148,10 @@ def crop_image(image_path, detection_results, crop_dir):
         x4 = result[6]
         y4 = result[7]
         tile=[(x1,y1),(x2,y2),(x3,y3),(x4,y4)]
+        if (x1,y1)==(x4,y4):
+            continue
+        if(Polygon(tile).area==0):
+            continue
         crop,hori=general_crop(np.array(img),tile)
         crop=Image.fromarray(crop)
         crop.save(save_crop_path)
