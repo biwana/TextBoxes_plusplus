@@ -122,9 +122,11 @@ def apply_quad_nms(bboxes, overlap_threshold):
 				results.append(dt)
 	return results
 
-def save_and_visu(image, image_name, results, config):
+def save_and_visu(image, image_file, results, config):
 	# modified for multiple
-	det_save_path=os.path.join(config['det_save_dir'], image_name.split('.')[0]+'.txt')
+	img_name=image_file.split('/')[-1]
+	basename=img_name.split('.')[0]
+	det_save_path=os.path.join(config['det_save_dir'], basename+'.txt')
 	det_fid = open(det_save_path, 'wt')
 	if config['visu_detection']:
 		# visulization
@@ -158,7 +160,7 @@ net, transformer = prepare_network(config)
 
 img_list = get_images()
 for img_file in img_list:
-	image=caffe.io.load_image(os.path.join(config['img_dir'], img_file))
+	image=caffe.io.load_image(img_file)
 	transformed_image = transformer.preprocess('data', image)
 	net.blobs['data'].data[...] = transformed_image
 

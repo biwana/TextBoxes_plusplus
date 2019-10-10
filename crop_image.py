@@ -131,7 +131,7 @@ def general_crop_expand(image, tile):
 def crop_image(image_path, detection_results, crop_dir):
     img=Image.open(image_path)
     img_name=image_path.split('/')[-1]
-    basename=image_name.split('.')[0]
+    basename=img_name.split('.')[0]
     width, height=img.size
     index=0
     crop_path = os.path.join(crop_dir, basename)
