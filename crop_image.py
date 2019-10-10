@@ -63,8 +63,8 @@ def general_crop(image, tile):
     x_max = min(newCX + int(round(bb_width / 2)), nW)
     y_min = max(newCY - int(round(bb_height / 2)), 0)
     y_max = min(newCY + int(round(bb_height / 2)), nH)
-    print([x_min,y_min,x_max,y_max])
-    print([nW,nH])
+    #print([x_min,y_min,x_max,y_max])
+    #print([nW,nH])
     return im_rotate[y_min:y_max, x_min:x_max, :], horiz
 
 def general_crop_expand(image, tile):
@@ -124,8 +124,8 @@ def general_crop_expand(image, tile):
     x_max = min(newCX + int(round(bb_width / 2) + expand_dist), nW)
     y_min = max(newCY - int(round(bb_height / 2) - expand_dist), 0)
     y_max = min(newCY + int(round(bb_height / 2) + expand_dist), nH)
-    print([x_min,y_min,x_max,y_max])
-    print([nW,nH])
+    #print([x_min,y_min,x_max,y_max])
+    #print([nW,nH])
     return im_rotate[y_min:y_max, x_min:x_max, :], horiz
 
 def crop_image(image_path, detection_results, crop_dir):
@@ -138,6 +138,7 @@ def crop_image(image_path, detection_results, crop_dir):
     for result in detection_results:
         crop_name=str(index)+'.png'
         save_crop_path=crop_path+"_"+crop_name
+        print(save_crop_path)
         x1 = result[0]
         y1 = result[1]
         x2 = result[2]

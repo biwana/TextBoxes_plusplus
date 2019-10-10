@@ -34,7 +34,7 @@ config = {
 	'visu_detection' : True,
 }
 
-def get_images():
+def get_images(config):
     '''
     find image files in test data path
     :return: list of files found
@@ -153,12 +153,12 @@ def save_and_visu(image, image_file, results, config):
 	det_fid.close()
 	if config['visu_detection']:
 		plt.axis('off')
-		plt.savefig(os.path.join(config['det_visu_path'], img_name), dpi=300)
+		plt.savefig(os.path.join(config['det_visu_path'], img_name))
 
 # detection
 net, transformer = prepare_network(config)
 
-img_list = get_images()
+img_list = get_images(config)
 for img_file in img_list:
 	image=caffe.io.load_image(img_file)
 	transformed_image = transformer.preprocess('data', image)
