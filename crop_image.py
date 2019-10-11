@@ -67,7 +67,10 @@ def general_crop(image, tile):
     # print([nW,nH])
     # print([width, height])
     # print(im_rotate.shape)
-    return im_rotate[y_min:y_max, x_min:x_max, :], horiz
+    if im_rotate.ndim == 2:
+        return im_rotate[y_min:y_max, x_min:x_max], horiz
+    else:
+        return im_rotate[y_min:y_max, x_min:x_max, :], horiz
 
 def general_crop_expand(image, tile):
     """Crop the image giving a tile.
@@ -128,7 +131,10 @@ def general_crop_expand(image, tile):
     y_max = min(newCY + int(round(bb_height / 2) + expand_dist), nH)
     #print([x_min,y_min,x_max,y_max])
     #print([nW,nH])
-    return im_rotate[y_min:y_max, x_min:x_max, :], horiz
+    if im_rotate.ndim == 2:
+        return im_rotate[y_min:y_max, x_min:x_max], horiz
+    else:
+        return im_rotate[y_min:y_max, x_min:x_max, :], horiz
 
 def crop_image(image_path, detection_results, crop_dir):
     img=Image.open(image_path)
