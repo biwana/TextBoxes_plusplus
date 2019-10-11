@@ -140,7 +140,7 @@ def crop_image(image_path, detection_results, crop_dir):
     for result in detection_results:
         crop_name=str(index)+'.png'
         save_crop_path=crop_path+"_"+crop_name
-        print(save_crop_path)
+        # print(save_crop_path)
         x1 = result[0]
         y1 = result[1]
         x2 = result[2]

@@ -32,6 +32,7 @@ config = {
 	'overlap_threshold' : 0.2,
 	'det_score_threshold' : 0.2,
 	'visu_detection' : True,
+	'do_crop' : True,
 }
 
 def get_images(config):
@@ -172,6 +173,7 @@ if __name__ == "__main__":
 	for img_tup in img_list:
 		img_file = img_tup[0]
 		if os.path.isfile(img_file):
+			print(img_file)
 			image=caffe.io.load_image(img_file)
 			transformed_image = transformer.preprocess('data', image)
 			net.blobs['data'].data[...] = transformed_image
@@ -183,6 +185,7 @@ if __name__ == "__main__":
 			# apply non-maximum suppression
 			results = apply_quad_nms(bboxes, config['overlap_threshold'])
 			save_and_visu(image, img_file, results, config)
-			crop_image(img_file, results, os.path.join(config['crop_dir']))
+			if config['do_crop']:
+				crop_image(img_file, results, os.path.join(config['crop_dir']))
 	print('detection finished')
 
