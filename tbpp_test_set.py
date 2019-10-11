@@ -17,16 +17,16 @@ os.chdir(caffe_root)
 import sys
 sys.path.insert(0, 'python')
 
-caffe.set_device(int(sys.argv[1]))
+caffe.set_device(int(sys.argv[2]))
 caffe.set_mode_gpu()
 
 config = {
 	'model_def' : './models/deploy.prototxt',
 	'model_weights' : './models/model_icdar15.caffemodel',
 	'img_dir' : './cleaned_original/',
-	'det_visu_path' : './output/tbpp_results/',
-	'det_save_dir' : './output/tbpp_results/',
-	'crop_dir' : './output/tbpp_crop/',
+	'det_visu_path' : './output/tbpp_test_results/',
+	'det_save_dir' : './output/tbpp_test_results/',
+	'crop_dir' : './output/tbpp_test_crop/',
 	'input_height' : 768,
 	'input_width' : 768,
 	'overlap_threshold' : 0.2,
@@ -163,11 +163,14 @@ def save_and_visu(image, image_file, results, config):
 		plt.close()
 
 if __name__ == "__main__":
+	test_file = sys.argv[1]
+
 	# detection
 	net, transformer = prepare_network(config)
 
-	img_list = get_images(config)
-	for img_file in img_list:
+	img_list = np.genfromtxt(test_file, " ")
+	for img_tup in img_list:
+		img_file = img_tup[0]
 		if os.path.isfile(img_file):
 			image=caffe.io.load_image(img_file)
 			transformed_image = transformer.preprocess('data', image)
