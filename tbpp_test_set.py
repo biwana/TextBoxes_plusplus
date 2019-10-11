@@ -169,7 +169,7 @@ if __name__ == "__main__":
 	# detection
 	net, transformer = prepare_network(config)
 
-	img_list = np.genfromtxt(test_file, " ")
+	img_list = np.genfromtxt(test_file, delimiter=" ")
 	for img_tup in img_list:
 		img_file = img_tup[0]
 		if os.path.isfile(img_file):
